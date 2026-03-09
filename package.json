@@ -1,6 +1,6 @@
 {
   "name": "@philiprehberger/task-queue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "In-process async job queue with concurrency control, priorities, and retries",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -8,11 +8,19 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
-      "require": { "types": "./dist/index.d.cts", "default": "./dist/index.cjs" }
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -23,12 +31,27 @@
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
   },
-  "keywords": ["queue", "job", "task", "async", "concurrency", "background", "worker"],
+  "keywords": [
+    "queue",
+    "job",
+    "task",
+    "async",
+    "concurrency",
+    "background",
+    "worker"
+  ],
   "license": "MIT",
-  "repository": { "type": "git", "url": "git+https://github.com/philiprehberger/task-queue.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philiprehberger/task-queue.git"
+  },
   "homepage": "https://github.com/philiprehberger/task-queue#readme",
-  "bugs": { "url": "https://github.com/philiprehberger/task-queue/issues" },
+  "bugs": {
+    "url": "https://github.com/philiprehberger/task-queue/issues"
+  },
   "author": "Philip Rehberger",
-  "engines": { "node": ">=18.0.0" },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "sideEffects": false
 }
