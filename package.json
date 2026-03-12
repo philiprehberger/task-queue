@@ -1,5 +1,5 @@
 {
-  "name": "@philiprehberger/task-queue",
+  "name": "@philiprehberger/ts-task-queue",
   "version": "0.1.1",
   "description": "In-process async job queue with concurrency control, priorities, and retries",
   "type": "module",
@@ -43,11 +43,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/philiprehberger/task-queue.git"
+    "url": "git+https://github.com/philiprehberger/ts-task-queue.git"
   },
-  "homepage": "https://github.com/philiprehberger/task-queue#readme",
+  "homepage": "https://github.com/philiprehberger/ts-task-queue#readme",
   "bugs": {
-    "url": "https://github.com/philiprehberger/task-queue/issues"
+    "url": "https://github.com/philiprehberger/ts-task-queue/issues"
   },
   "author": "Philip Rehberger",
   "engines": {

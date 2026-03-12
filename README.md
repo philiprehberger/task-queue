@@ -1,4 +1,4 @@
-# @philiprehberger/task-queue
+# @philiprehberger/ts-task-queue
 
 In-process async job queue with concurrency control, priorities, and retries.
 
@@ -7,7 +7,7 @@ In-process async job queue with concurrency control, priorities, and retries.
 ## Installation
 
 ```bash
-npm install @philiprehberger/task-queue
+npm install @philiprehberger/ts-task-queue
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm install @philiprehberger/task-queue
 ### Basic
 
 ```ts
-import { createQueue } from '@philiprehberger/task-queue';
+import { createQueue } from '@philiprehberger/ts-task-queue';
 
 const queue = createQueue<{ to: string; subject: string }>({
   concurrency: 3,
