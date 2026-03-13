@@ -10,6 +10,7 @@ export function createQueue<T>(options: QueueOptions = {}, events: QueueEvents<T
     backoffMultiplier = 2,
     initialBackoff = 1000,
     timeout: queueTimeout,
+    maxSize,
   } = options;
 
   const defaultTimeout = queueTimeout ? parseDuration(queueTimeout) : undefined;
@@ -55,18 +56,21 @@ export function createQueue<T>(options: QueueOptions = {}, events: QueueEvents<T
       const jobTimeout = job.timeout ?? defaultTimeout;
 
       let result: Promise<void>;
+      let timeoutId: ReturnType<typeof setTimeout> | undefined;
       if (jobTimeout != null && jobTimeout > 0) {
         result = Promise.race([
           handler(job),
           new Promise<never>((_, reject) => {
-            setTimeout(() => reject(new Error(`Job timed out after ${jobTimeout}ms`)), jobTimeout);
+            timeoutId = setTimeout(() => reject(new Error(`Job timed out after ${jobTimeout}ms`)), jobTimeout);
           }),
         ]);
       } else {
         result = handler(job);
       }
 
-      await result;
+      await result.finally(() => {
+        if (timeoutId != null) clearTimeout(timeoutId);
+      });
       job.status = 'completed';
       if (job.key) knownKeys.delete(job.key);
       events.onComplete?.(job);
@@ -137,6 +141,10 @@ export function createQueue<T>(options: QueueOptions = {}, events: QueueEvents<T
       }
     }
 
+    if (maxSize != null && pending.length >= maxSize) {
+      throw new Error(`Queue is full (maxSize: ${maxSize})`);
+    }
+
     const delay = opts?.delay ? parseDuration(opts.delay) : 0;
     const jobTimeout = opts?.timeout ? parseDuration(opts.timeout) : undefined;
     const job: Job<T> = {
@@ -189,6 +197,15 @@ export function createQueue<T>(options: QueueOptions = {}, events: QueueEvents<T
     return pending.filter((j) => j.processAt <= Date.now()).length;
   }
 
+  function clear(): number {
+    const count = pending.length;
+    for (const job of pending) {
+      if (job.key) knownKeys.delete(job.key);
+    }
+    pending.length = 0;
+    return count;
+  }
+
   function destroy(): void {
     stopTimer();
     pending.length = 0;
@@ -197,5 +214,5 @@ export function createQueue<T>(options: QueueOptions = {}, events: QueueEvents<T
     handler = null;
   }
 
-  return { process, add, drain, pause, resume, size, active, pending: pendingCount, destroy };
+  return { process, add, drain, pause, resume, size, active, pending: pendingCount, clear, destroy };
 }

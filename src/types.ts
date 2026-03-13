@@ -7,6 +7,7 @@ export interface QueueOptions {
   backoffMultiplier?: number;
   initialBackoff?: number;
   timeout?: string | number;
+  maxSize?: number;
 }
 
 export interface AddOptions {

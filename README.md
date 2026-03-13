@@ -54,6 +54,14 @@ const queue = createQueue<MyData>({ concurrency: 3, timeout: 30000 });
 queue.add(data, { timeout: 5000 });
 ```
 
+### Max Queue Size
+
+```ts
+const queue = createQueue<MyData>({ maxSize: 1000 });
+
+queue.add(data); // throws Error if queue already has 1000 pending jobs
+```
+
 ### Deduplication
 
 ```ts
@@ -89,6 +97,12 @@ process.on('SIGTERM', async () => {
   await queue.drain(); // wait for active jobs to finish
   process.exit(0);
 });
+```
+
+### Clear Pending Jobs
+
+```ts
+const removed = queue.clear(); // removes all pending jobs, returns count removed
 ```
 
 ### Queue Stats
