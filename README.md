@@ -1,12 +1,12 @@
 # @philiprehberger/task-queue
 
-[![CI](https://github.com/philiprehberger/task-queue/actions/workflows/publish.yml/badge.svg)](https://github.com/philiprehberger/task-queue/actions/workflows/publish.yml)
+[![CI](https://github.com/philiprehberger/task-queue/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/task-queue/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/@philiprehberger/task-queue.svg)](https://www.npmjs.com/package/@philiprehberger/task-queue)
 [![License](https://img.shields.io/github/license/philiprehberger/task-queue)](LICENSE)
 
 In-process async job queue with concurrency control, priorities, and retries
 
-> **Note:** This is an in-process queue using in-memory storage. For distributed job processing across multiple servers, use a Redis-backed solution like BullMQ.
+> **Note:** This is an in-process queue using in-memory storage. For distributed job processing across multiple servers, use a Redis-backed solution like BullMQ
 
 ## Installation
 
